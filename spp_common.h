@@ -18,12 +18,10 @@ bool merge(cost_set& dest, const cost_set& src, const cost_pair& edge_cost)
 
 		if (sl.first < jj->first)
 		{
-			bool deleted = false;
 			while (jj != dest.end() && sl.second <= jj->second)
 			{
 				cost_set::iterator del = jj++;
 				dest.erase(del);
-				deleted = true;
 			}
 
 			dest.insert(sl);
@@ -45,13 +43,11 @@ bool merge(cost_set& dest, const cost_set& src, const cost_pair& edge_cost)
 		{
 			if (sl.second < jj->second)
 			{
-				bool deleted = false;
 				while (jj != dest.end() && sl.second <= jj->second)
 				{
 					assert(sl.first <= jj->first);
 					cost_set::iterator del = jj++;
 					dest.erase(del);
-					deleted = true;
 				}
 
 				dest.insert(sl);
@@ -94,18 +90,15 @@ bool over_target(const cost_set& target, const cost_set& src, const cost_pair& h
 
 	while (ii != src.end() && jj != target.end())
 	{
-		bool deleted = false;
 		if (ii->first + h.first < jj->first)
 		{
 			while (jj != target.end() && ii->second + h.second <= jj->second)
 			{
 				jj++;
-				deleted = true;
 			}
 
 			merged = true;
 			break;
-			++ii;
 		}
 		else if (ii->first + h.first > jj->first)
 		{
@@ -121,17 +114,14 @@ bool over_target(const cost_set& target, const cost_set& src, const cost_pair& h
 		{
 			if (ii->second + h.second < jj->second)
 			{
-				bool deleted = false;
 				while (jj != target.end() && ii->second + h.second <= jj->second)
 				{
 					assert(ii->first + h.first <= jj->first);
 					jj++;
-					deleted = true;
 				}
 
 				merged = true;
 				break;
-				++ii;
 			}
 			else if (ii->second + h.second > jj->second)
 			{
